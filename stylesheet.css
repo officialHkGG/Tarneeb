@@ -6,9 +6,13 @@
 }
 
 body {
+    background-image: url('your-image-file.jpg'); /* Update with the correct path to your image */
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* Change text color for better contrast on dark background */
+    margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +21,7 @@ body {
 }
 
 .container {
-    background-color: white;
+    background-color: rgb(255, 255, 255); /* Semi-transparent black background */
     border-radius: 10px;
     padding: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -25,6 +29,7 @@ body {
     max-width: 400px;
     width: 100%;
 }
+
 
 h1 {
     font-size: 32px;
