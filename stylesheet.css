@@ -85,7 +85,17 @@ input:disabled {
 }
 
 footer {
-    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    color: #fff; /* White text color */
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     font-size: 14px;
-    color: #888;
+}
+
+footer p {
+    margin: 0;
 }
