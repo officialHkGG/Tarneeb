@@ -4,41 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarneeb Score Tracker</title>
-    <link rel="stylesheet" href="stylesheet.css"> <!-- Link to your CSS file -->
+
+    <!-- Import Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Flexbox layout to ensure footer stays at the bottom */
+        /* Body and Container Styling */
         body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* Soft gradient background */
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            margin: 0;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            flex: 1; /* Ensures the container takes up available space */
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
             text-align: center;
-            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 12px;
+            margin: 10px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: calc(50% - 24px);
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #74ebd5;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #74ebd5;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #67dac9;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #5ac0b4;
+            transform: translateY(0px);
         }
 
         footer {
-            background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
             padding: 10px 0;
             text-align: center;
             font-size: 14px;
+            width: 100%;
         }
 
-        /* Additional styling for inputs */
-        input[type="text"], input[type="number"] {
-            padding: 10px;
-            margin: 10px;
-            font-size: 18px;
-        }
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
 
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 18px;
+            input[type="text"], input[type="number"] {
+                width: calc(100% - 20px);
+            }
+
+            button {
+                width: calc(100% - 20px);
+            }
         }
     </style>
 </head>
