@@ -115,7 +115,7 @@
         <h1>Tarneeb Score Tracker</h1>
 
         <!-- Add inputs for team names -->
-        <div>
+        <div id="team-names-inputs">
             <input type="text" id="team1-name-input" placeholder="Enter Team 1 Name" />
             <input type="text" id="team2-name-input" placeholder="Enter Team 2 Name" />
             <button onclick="setTeamNames()">Set Team Names</button>
@@ -134,6 +134,8 @@
         <div>
             <button onclick="updateScores()">Update Scores</button>
             <button onclick="undoLastUpdate()">Undo</button>
+            <!-- Add a hidden Restart button initially -->
+            <button id="restart-button" onclick="restartGame()" style="display: none;">Restart Game</button>
         </div>
     </div>
 
@@ -159,9 +161,8 @@
             document.getElementById('team1-name').textContent = team1Name;
             document.getElementById('team2-name').textContent = team2Name;
 
-            // Optionally, clear the input fields after setting the names
-            document.getElementById('team1-name-input').value = '';
-            document.getElementById('team2-name-input').value = '';
+            // Hide the input fields and Set Team Names button
+            document.getElementById('team-names-inputs').style.display = 'none';
         }
 
         function updateScores() {
@@ -195,15 +196,40 @@
             if (team1Score >= MAX_SCORE) {
                 alert(document.getElementById('team1-name').textContent + " Wins!");
                 disableInput();
+                showRestartButton();
             } else if (team2Score >= MAX_SCORE) {
                 alert(document.getElementById('team2-name').textContent + " Wins!");
                 disableInput();
+                showRestartButton();
             }
         }
 
         function disableInput() {
             document.getElementById('team1-points').disabled = true;
             document.getElementById('team2-points').disabled = true;
+        }
+
+        function showRestartButton() {
+            // Show the Restart button when the game is over
+            document.getElementById('restart-button').style.display = 'inline-block';
+        }
+
+        function restartGame() {
+            // Reset scores and enable inputs
+            team1Score = 0;
+            team2Score = 0;
+
+            document.getElementById('team1-score').textContent = team1Score;
+            document.getElementById('team2-score').textContent = team2Score;
+
+            document.getElementById('team1-points').disabled = false;
+            document.getElementById('team2-points').disabled = false;
+
+            // Hide the Restart button again
+            document.getElementById('restart-button').style.display = 'none';
+
+            // Show the team name input fields again for a new game
+            document.getElementById('team-names-inputs').style.display = 'block';
         }
     </script>
 </body>
