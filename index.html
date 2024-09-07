@@ -8,11 +8,14 @@
     <!-- Import Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <!-- Import Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        /* Body and Container Styling */
+        /* Custom Styles */
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* Soft gradient background */
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
             margin: 0;
             padding: 0;
             display: flex;
@@ -28,7 +31,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 30px;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -47,19 +50,8 @@
             color: #555;
         }
 
-        input[type="text"], input[type="number"] {
-            padding: 12px;
+        .form-control {
             margin: 10px;
-            font-size: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            width: calc(50% - 24px);
-            outline: none;
-            transition: border 0.3s;
-        }
-
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #74ebd5;
         }
 
         button {
@@ -94,13 +86,12 @@
             width: 100%;
         }
 
-        /* Mobile responsiveness */
         @media (max-width: 480px) {
             h1 {
                 font-size: 2rem;
             }
 
-            input[type="text"], input[type="number"] {
+            .form-control {
                 width: calc(100% - 20px);
             }
 
@@ -116,9 +107,9 @@
 
         <!-- Add inputs for team names -->
         <div id="team-names-inputs">
-            <input type="text" id="team1-name-input" placeholder="Enter Team 1 Name" />
-            <input type="text" id="team2-name-input" placeholder="Enter Team 2 Name" />
-            <button onclick="setTeamNames()">Set Team Names</button>
+            <input type="text" id="team1-name-input" class="form-control" placeholder="Enter Team 1 Name" />
+            <input type="text" id="team2-name-input" class="form-control" placeholder="Enter Team 2 Name" />
+            <button class="btn btn-primary" onclick="setTeamNames()">Set Team Names</button>
         </div>
 
         <div>
@@ -127,15 +118,48 @@
         </div>
 
         <div>
-            <input type="number" id="team1-points" placeholder="Team 1 Points" />
-            <input type="number" id="team2-points" placeholder="Team 2 Points" />
+            <label for="team1-points">Team 1 Points:</label>
+            <select id="team1-points" class="form-control">
+                <option value="0">Select Points</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="20">20</option>
+            </select>
+            <select id="team1-sign" class="form-control">
+                <option value="positive">Positive</option>
+                <option value="negative">Negative</option>
+            </select>
         </div>
 
         <div>
-            <button onclick="updateScores()">Update Scores</button>
-            <button onclick="undoLastUpdate()">Undo</button>
+            <label for="team2-points">Team 2 Points:</label>
+            <select id="team2-points" class="form-control">
+                <option value="0">Select Points</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="20">20</option>
+            </select>
+            <select id="team2-sign" class="form-control">
+                <option value="positive">Positive</option>
+                <option value="negative">Negative</option>
+            </select>
+        </div>
+
+        <div>
+            <button class="btn btn-primary" onclick="updateScores()">Update Scores</button>
+            <button class="btn btn-secondary" onclick="undoLastUpdate()">Undo</button>
             <!-- Add a hidden Restart button initially -->
-            <button id="restart-button" onclick="restartGame()" style="display: none;">Restart Game</button>
+            <button id="restart-button" class="btn btn-warning" onclick="restartGame()" style="display: none;">Restart Game</button>
         </div>
     </div>
 
@@ -153,15 +177,12 @@
         const MAX_SCORE = 61;
 
         function setTeamNames() {
-            // Get the names from the input fields
             const team1Name = document.getElementById('team1-name-input').value || 'Team 1';
             const team2Name = document.getElementById('team2-name-input').value || 'Team 2';
 
-            // Update the displayed names
             document.getElementById('team1-name').textContent = team1Name;
             document.getElementById('team2-name').textContent = team2Name;
 
-            // Hide the input fields and Set Team Names button
             document.getElementById('team-names-inputs').style.display = 'none';
         }
 
@@ -170,16 +191,23 @@
             previousTeam2Score = team2Score;
 
             const team1Points = parseInt(document.getElementById('team1-points').value) || 0;
-            const team2Points = parseInt(document.getElementById('team2-points').value) || 0;
+            const team1Sign = document.getElementById('team1-sign').value;
 
-            team1Score += team1Points;
-            team2Score += team2Points;
+            const team2Points = parseInt(document.getElementById('team2-points').value) || 0;
+            const team2Sign = document.getElementById('team2-sign').value;
+
+            // Adjust scores based on the selected sign
+            const team1ScoreChange = team1Sign === 'positive' ? team1Points : -team1Points;
+            const team2ScoreChange = team2Sign === 'positive' ? team2Points : -team2Points;
+
+            team1Score += team1ScoreChange;
+            team2Score += team2ScoreChange;
 
             document.getElementById('team1-score').textContent = team1Score;
             document.getElementById('team2-score').textContent = team2Score;
 
-            document.getElementById('team1-points').value = '';
-            document.getElementById('team2-points').value = '';
+            document.getElementById('team1-points').value = '0';
+            document.getElementById('team2-points').value = '0';
 
             checkForWinner();
         }
@@ -210,12 +238,10 @@
         }
 
         function showRestartButton() {
-            // Show the Restart button when the game is over
             document.getElementById('restart-button').style.display = 'inline-block';
         }
 
         function restartGame() {
-            // Reset scores and enable inputs
             team1Score = 0;
             team2Score = 0;
 
@@ -225,10 +251,8 @@
             document.getElementById('team1-points').disabled = false;
             document.getElementById('team2-points').disabled = false;
 
-            // Hide the Restart button again
             document.getElementById('restart-button').style.display = 'none';
 
-            // Show the team name input fields again for a new game
             document.getElementById('team-names-inputs').style.display = 'block';
         }
     </script>
