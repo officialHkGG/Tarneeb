@@ -5,20 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarneeb Score Tracker</title>
     <link rel="stylesheet" href="stylesheet.css"> <!-- Link to your CSS file -->
+    <style>
+        /* Flexbox layout to ensure footer stays at the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            flex: 1; /* Ensures the container takes up available space */
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Additional styling for inputs */
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Add a container for styling -->
     <div class="container">
         <h1>Tarneeb Score Tracker</h1>
 
+        <!-- Add inputs for team names -->
         <div>
-            <p class="score-label">Team 1 Score: <span id="team1-score">0</span></p>
-            <p class="score-label">Team 2 Score: <span id="team2-score">0</span></p>
+            <input type="text" id="team1-name-input" placeholder="Enter Team 1 Name" />
+            <input type="text" id="team2-name-input" placeholder="Enter Team 2 Name" />
+            <button onclick="setTeamNames()">Set Team Names</button>
         </div>
 
         <div>
-            <input type="number" id="team1-points" placeholder="Team 1" />
-            <input type="number" id="team2-points" placeholder="Team 2" />
+            <p class="score-label"><span id="team1-name">Team 1</span> Score: <span id="team1-score">0</span></p>
+            <p class="score-label"><span id="team2-name">Team 2</span> Score: <span id="team2-score">0</span></p>
+        </div>
+
+        <div>
+            <input type="number" id="team1-points" placeholder="Team 1 Points" />
+            <input type="number" id="team2-points" placeholder="Team 2 Points" />
         </div>
 
         <div>
@@ -27,6 +69,10 @@
         </div>
     </div>
 
+    <footer>
+        <p>Tarneeb score page created by [Officialhk]</p>
+    </footer>
+
     <script>
         let team1Score = 0;
         let team2Score = 0;
@@ -34,7 +80,21 @@
         let previousTeam1Score = 0;
         let previousTeam2Score = 0;
 
-        const MAX_SCORE = 31;
+        const MAX_SCORE = 61;
+
+        function setTeamNames() {
+            // Get the names from the input fields
+            const team1Name = document.getElementById('team1-name-input').value || 'Team 1';
+            const team2Name = document.getElementById('team2-name-input').value || 'Team 2';
+
+            // Update the displayed names
+            document.getElementById('team1-name').textContent = team1Name;
+            document.getElementById('team2-name').textContent = team2Name;
+
+            // Optionally, clear the input fields after setting the names
+            document.getElementById('team1-name-input').value = '';
+            document.getElementById('team2-name-input').value = '';
+        }
 
         function updateScores() {
             previousTeam1Score = team1Score;
@@ -65,10 +125,10 @@
 
         function checkForWinner() {
             if (team1Score >= MAX_SCORE) {
-                alert("Team 1 Wins!");
+                alert(document.getElementById('team1-name').textContent + " Wins!");
                 disableInput();
             } else if (team2Score >= MAX_SCORE) {
-                alert("Team 2 Wins!");
+                alert(document.getElementById('team2-name').textContent + " Wins!");
                 disableInput();
             }
         }
@@ -79,8 +139,4 @@
         }
     </script>
 </body>
-<footer>
-    <p>Tarneeb score page created by [Officialhk]</p>
-</footer>
-
 </html>
