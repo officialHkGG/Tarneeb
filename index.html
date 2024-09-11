@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarneeb Score Tracker</title>
 
-    <!-- Import Google Font -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Import Bootstrap CSS -->
+    
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Custom Styles */
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #74ebd5, #ACB6E5);
@@ -54,9 +54,13 @@
             margin: 10px;
         }
 
-        button {
-            padding: 12px 20px;
-            margin: 10px;
+        .score-buttons {
+            margin-bottom: 10px;
+        }
+
+        .score-button {
+            margin: 5px;
+            padding: 10px;
             font-size: 1rem;
             border: none;
             border-radius: 8px;
@@ -65,14 +69,15 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
             font-weight: 600;
+            width: 50px;
         }
 
-        button:hover {
+        .score-button:hover {
             background-color: #67dac9;
             transform: translateY(-2px);
         }
 
-        button:active {
+        .score-button:active {
             background-color: #5ac0b4;
             transform: translateY(0px);
         }
@@ -101,11 +106,10 @@
         }
     </style>
 </head>
-<body>
+<body>    
     <div class="container">
         <h1>Tarneeb Score Tracker</h1>
 
-        <!-- Add inputs for team names -->
         <div id="team-names-inputs">
             <input type="text" id="team1-name-input" class="form-control" placeholder="Enter Team 1 Name" />
             <input type="text" id="team2-name-input" class="form-control" placeholder="Enter Team 2 Name" />
@@ -118,47 +122,52 @@
         </div>
 
         <div>
-            <label for="team1-points">Team 1 Points:</label>
-            <select id="team1-points" class="form-control">
-                <option value="0">Select Points</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="20">20</option>
-            </select>
-            <select id="team1-sign" class="form-control">
-                <option value="positive">Positive</option>
-                <option value="negative">Negative</option>
-            </select>
+            <label id="team1-points-label">Team 1 Points:</label>
+            <div class="score-buttons">
+                <button class="score-button" onclick="updateTeamScore('team1', 7, 'positive')">+7</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 8, 'positive')">+8</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 9, 'positive')">+9</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 10, 'positive')">+10</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 11, 'positive')">+11</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 12, 'positive')">+12</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 13, 'positive')">+13</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 20, 'positive')">+20</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 7, 'negative')">-7</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 8, 'negative')">-8</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 9, 'negative')">-9</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 10, 'negative')">-10</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 11, 'negative')">-11</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 12, 'negative')">-12</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 13, 'negative')">-13</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 20, 'negative')">-20</button>
+            </div>
         </div>
 
         <div>
-            <label for="team2-points">Team 2 Points:</label>
-            <select id="team2-points" class="form-control">
-                <option value="0">Select Points</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="20">20</option>
-            </select>
-            <select id="team2-sign" class="form-control">
-                <option value="positive">Positive</option>
-                <option value="negative">Negative</option>
-            </select>
+            <label id="team2-points-label">Team 2 Points:</label>
+            <div class="score-buttons">
+                <button class="score-button" onclick="updateTeamScore('team2', 7, 'positive')">+7</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 8, 'positive')">+8</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 9, 'positive')">+9</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 10, 'positive')">+10</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 11, 'positive')">+11</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 12, 'positive')">+12</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 13, 'positive')">+13</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 20, 'positive')">+20</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 7, 'negative')">-7</button>
+                <button class="score-button" onclick="updateTeamScore('team2', 8, 'negative')">-8</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 9, 'negative')">-9</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 10, 'negative')">-10</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 11, 'negative')">-11</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 12, 'negative')">-12</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 13, 'negative')">-13</button>
+                <button class="score-button" onclick="updateTeamScore('team1', 20, 'negative')">-20</button>
+            </div>
         </div>
 
         <div>
-            <button class="btn btn-primary" onclick="updateScores()">Update Scores</button>
-            <button class="btn btn-secondary" onclick="undoLastUpdate()">Undo</button>
-            <!-- Add a hidden Restart button initially -->
+            <button class="btn btn-primary" onclick="undoLastUpdate()">Undo</button>
+            
             <button id="restart-button" class="btn btn-warning" onclick="restartGame()" style="display: none;">Restart Game</button>
         </div>
     </div>
@@ -183,31 +192,23 @@
             document.getElementById('team1-name').textContent = team1Name;
             document.getElementById('team2-name').textContent = team2Name;
 
+            
+            document.getElementById('team1-points-label').textContent = `${team1Name} Points:`;
+            document.getElementById('team2-points-label').textContent = `${team2Name} Points:`;
+
             document.getElementById('team-names-inputs').style.display = 'none';
         }
 
-        function updateScores() {
-            previousTeam1Score = team1Score;
-            previousTeam2Score = team2Score;
-
-            const team1Points = parseInt(document.getElementById('team1-points').value) || 0;
-            const team1Sign = document.getElementById('team1-sign').value;
-
-            const team2Points = parseInt(document.getElementById('team2-points').value) || 0;
-            const team2Sign = document.getElementById('team2-sign').value;
-
-            // Adjust scores based on the selected sign
-            const team1ScoreChange = team1Sign === 'positive' ? team1Points : -team1Points;
-            const team2ScoreChange = team2Sign === 'positive' ? team2Points : -team2Points;
-
-            team1Score += team1ScoreChange;
-            team2Score += team2ScoreChange;
-
-            document.getElementById('team1-score').textContent = team1Score;
-            document.getElementById('team2-score').textContent = team2Score;
-
-            document.getElementById('team1-points').value = '0';
-            document.getElementById('team2-points').value = '0';
+        function updateTeamScore(team, points, sign) {
+            if (team === 'team1') {
+                previousTeam1Score = team1Score;
+                team1Score += sign === 'positive' ? points : -points;
+                document.getElementById('team1-score').textContent = team1Score;
+            } else if (team === 'team2') {
+                previousTeam2Score = team2Score;
+                team2Score += sign === 'positive' ? points : -points;
+                document.getElementById('team2-score').textContent = team2Score;
+            }
 
             checkForWinner();
         }
@@ -233,8 +234,8 @@
         }
 
         function disableInput() {
-            document.getElementById('team1-points').disabled = true;
-            document.getElementById('team2-points').disabled = true;
+            const buttons = document.querySelectorAll('.score-button');
+            buttons.forEach(button => button.disabled = true);
         }
 
         function showRestartButton() {
@@ -248,13 +249,14 @@
             document.getElementById('team1-score').textContent = team1Score;
             document.getElementById('team2-score').textContent = team2Score;
 
-            document.getElementById('team1-points').disabled = false;
-            document.getElementById('team2-points').disabled = false;
+            const buttons = document.querySelectorAll('.score-button');
+            buttons.forEach(button => button.disabled = false);
 
             document.getElementById('restart-button').style.display = 'none';
 
             document.getElementById('team-names-inputs').style.display = 'block';
         }
     </script>
+    
 </body>
 </html>
