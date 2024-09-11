@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarneeb Score Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .score-buttons {
+            margin-bottom: 10px;
+        }
+
+        .score-button {
+            margin: 5px;
+            padding: 10px;
+            width: 50px;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-content button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tarneeb Score Tracker</h1>
+        <p class="score-label"><span id="team1-name">Team 1</span> Score: <span id="team1-score">0</span></p>
+        <p class="score-label"><span id="team2-name">Team 2</span> Score: <span id="team2-score">0</span></p>
+
+        <div id="team1-controls">
+            <label>Team 1 Points:</label>
+            <div class="score-buttons">
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 1)">1</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 2)">2</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 3)">3</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 4)">4</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 5)">5</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 6)">6</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 7)">7</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 8)">8</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 9)">9</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 10)">10</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 11)">11</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 12)">12</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 13)">13</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team1', 20)">20</button>
+            </div>
+        </div>
+
+        <div id="team2-controls">
+            <label>Team 2 Points:</label>
+            <div class="score-buttons">
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 1)">1</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 2)">2</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 3)">3</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 4)">4</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 5)">5</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 6)">6</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 7)">7</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 8)">8</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 9)">9</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 10)">10</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 11)">11</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 12)">12</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 13)">13</button>
+                <button class="score-button" onclick="confirmScoreUpdate('team2', 20)">20</button>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="undoLastUpdate()">Undo</button>
+        <button class="btn btn-warning" id="restart-button" style="display: none;" onclick="restartGame()">Restart Game</button>
+    </div>
+
+    <!-- Modal for confirming score update -->
+    <div id="scoreConfirmationModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Score Update</h2>
+            <p id="confirm-score-text"></p>
+            <button class="btn btn-success" onclick="applyScoreUpdate('positive')">Add Points</button>
+            <button class="btn btn-danger" onclick="applyScoreUpdate('negative')">Subtract Points</button>
+            <button class="btn btn-secondary" onclick="closeScoreModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        let team1Score = 0;
+        let team2Score = 0;
+        let previousTeam1Score = 0;
+        let previousTeam2Score = 0;
+        let currentTeam = '';
+        let currentPoints = 0;
+        const MAX_SCORE = 61;
+
+        // Retrieve team names from localStorage
+        document.getElementById('team1-name').textContent = localStorage.getItem('team1Name') || 'Team 1';
+        document.getElementById('team2-name').textContent = localStorage.getItem('team2Name') || 'Team 2';
+
+        function confirmScoreUpdate(team, points) {
+            // Store the current team and points for later use
+            currentTeam = team;
+            currentPoints = points;
+
+            // Update modal text with the score confirmation message
+            const teamName = document.getElementById(`${team}-name`).textContent;
+            document.getElementById('confirm-score-text').textContent = `Choose action for ${points} points to ${teamName}`;
+
+            // Show the modal
+            document.getElementById('scoreConfirmationModal').style.display = 'block';
+        }
+
+        function closeScoreModal() {
+            // Hide the modal without applying the score update
+            document.getElementById('scoreConfirmationModal').style.display = 'none';
+        }
+
+        function applyScoreUpdate(sign) {
+            // Apply the score update based on user choice
+            if (currentTeam === 'team1') {
+                previousTeam1Score = team1Score;
+                team1Score += sign === 'positive' ? currentPoints : -currentPoints;
+                document.getElementById('team1-score').textContent = team1Score;
+            } else if (currentTeam === 'team2') {
+                previousTeam2Score = team2Score;
+                team2Score += sign === 'positive' ? currentPoints : -currentPoints;
+                document.getElementById('team2-score').textContent = team2Score;
+            }
+            closeScoreModal(); // Close the modal after updating the score
+            checkForWinner();
+        }
+
+        function undoLastUpdate() {
+            team1Score = previousTeam1Score;
+            team2Score = previousTeam2Score;
+            document.getElementById('team1-score').textContent = team1Score;
+            document.getElementById('team2-score').textContent = team2Score;
+        }
+
+        function checkForWinner() {
+            if (team1Score >= MAX_SCORE) {
+                alert(document.getElementById('team1-name').textContent + " Wins!");
+                disableInput();
+                document.getElementById('restart-button').style.display = 'inline-block';
+            } else if (team2Score >= MAX_SCORE) {
+                alert(document.getElementById('team2-name').textContent + " Wins!");
+                disableInput();
+                document.getElementById('restart-button').style.display = 'inline-block';
+            }
+        }
+
+        function disableInput() {
+            const buttons = document.querySelectorAll('.score-button');
+            buttons.forEach(button => button.disabled = true);
+        }
+
+        function restartGame() {
+            team1Score = 0;
+            team2Score = 0;
+            document.getElementById('team1-score').textContent = team1Score;
+            document.getElementById('team2-score').textContent = team2Score;
+            const buttons = document.querySelectorAll('.score-button');
+            buttons.forEach(button => button.disabled = false);
+            document.getElementById('restart-button').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

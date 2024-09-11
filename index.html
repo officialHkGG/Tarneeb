@@ -3,260 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarneeb Score Tracker</title>
-
-    
+    <title>Set Teams</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
-        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #74ebd5, #ACB6E5);
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 30px;
             width: 90%;
-            max-width: 600px;
+            max-width: 400px;
             text-align: center;
-            margin-bottom: 20px;
         }
 
         h1 {
             font-size: 2.5rem;
-            color: #333;
             margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .score-label {
-            font-size: 1.2rem;
-            margin: 10px 0;
-            font-weight: 600;
-            color: #555;
         }
 
         .form-control {
-            margin: 10px;
+            margin: 10px 0;
         }
 
-        .score-buttons {
-            margin-bottom: 10px;
-        }
-
-        .score-button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 8px;
-            background-color: #74ebd5;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            font-weight: 600;
-            width: 50px;
-        }
-
-        .score-button:hover {
-            background-color: #67dac9;
-            transform: translateY(-2px);
-        }
-
-        .score-button:active {
-            background-color: #5ac0b4;
-            transform: translateY(0px);
-        }
-
-        footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 14px;
-            width: 100%;
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .form-control {
-                width: calc(100% - 20px);
-            }
-
-            button {
-                width: calc(100% - 20px);
-            }
+        button {
+            margin-top: 20px;
         }
     </style>
 </head>
-<body>    
+<body>
+
     <div class="container">
-        <h1>Tarneeb Score Tracker</h1>
-
-        <div id="team-names-inputs">
-            <input type="text" id="team1-name-input" class="form-control" placeholder="Enter Team 1 Name" />
-            <input type="text" id="team2-name-input" class="form-control" placeholder="Enter Team 2 Name" />
-            <button class="btn btn-primary" onclick="setTeamNames()">Set Team Names</button>
-        </div>
-
-        <div>
-            <p class="score-label"><span id="team1-name">Team 1</span> Score: <span id="team1-score">0</span></p>
-            <p class="score-label"><span id="team2-name">Team 2</span> Score: <span id="team2-score">0</span></p>
-        </div>
-
-        <div>
-            <label id="team1-points-label">Team 1 Points:</label>
-            <div class="score-buttons">
-                <button class="score-button" onclick="updateTeamScore('team1', 7, 'positive')">+7</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 8, 'positive')">+8</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 9, 'positive')">+9</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 10, 'positive')">+10</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 11, 'positive')">+11</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 12, 'positive')">+12</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 13, 'positive')">+13</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 20, 'positive')">+20</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 7, 'negative')">-7</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 8, 'negative')">-8</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 9, 'negative')">-9</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 10, 'negative')">-10</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 11, 'negative')">-11</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 12, 'negative')">-12</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 13, 'negative')">-13</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 20, 'negative')">-20</button>
-            </div>
-        </div>
-
-        <div>
-            <label id="team2-points-label">Team 2 Points:</label>
-            <div class="score-buttons">
-                <button class="score-button" onclick="updateTeamScore('team2', 7, 'positive')">+7</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 8, 'positive')">+8</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 9, 'positive')">+9</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 10, 'positive')">+10</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 11, 'positive')">+11</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 12, 'positive')">+12</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 13, 'positive')">+13</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 20, 'positive')">+20</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 7, 'negative')">-7</button>
-                <button class="score-button" onclick="updateTeamScore('team2', 8, 'negative')">-8</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 9, 'negative')">-9</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 10, 'negative')">-10</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 11, 'negative')">-11</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 12, 'negative')">-12</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 13, 'negative')">-13</button>
-                <button class="score-button" onclick="updateTeamScore('team1', 20, 'negative')">-20</button>
-            </div>
-        </div>
-
-        <div>
-            <button class="btn btn-primary" onclick="undoLastUpdate()">Undo</button>
-            
-            <button id="restart-button" class="btn btn-warning" onclick="restartGame()" style="display: none;">Restart Game</button>
-        </div>
+        <h1>Set Team Names</h1>
+        <input type="text" id="team1-name-input" class="form-control" placeholder="Enter Team 1 Name" />
+        <input type="text" id="team2-name-input" class="form-control" placeholder="Enter Team 2 Name" />
+        <button class="btn btn-primary" onclick="proceedToScores()">Proceed to Score Tracker</button>
     </div>
 
-    <footer>
-        <p>Tarneeb score page created by [Officialhk]</p>
-    </footer>
-
     <script>
-        let team1Score = 0;
-        let team2Score = 0;
-
-        let previousTeam1Score = 0;
-        let previousTeam2Score = 0;
-
-        const MAX_SCORE = 61;
-
-        function setTeamNames() {
+        function proceedToScores() {
             const team1Name = document.getElementById('team1-name-input').value || 'Team 1';
             const team2Name = document.getElementById('team2-name-input').value || 'Team 2';
 
-            document.getElementById('team1-name').textContent = team1Name;
-            document.getElementById('team2-name').textContent = team2Name;
+            // Store team names in localStorage
+            localStorage.setItem('team1Name', team1Name);
+            localStorage.setItem('team2Name', team2Name);
 
-            
-            document.getElementById('team1-points-label').textContent = `${team1Name} Points:`;
-            document.getElementById('team2-points-label').textContent = `${team2Name} Points:`;
-
-            document.getElementById('team-names-inputs').style.display = 'none';
-        }
-
-        function updateTeamScore(team, points, sign) {
-            if (team === 'team1') {
-                previousTeam1Score = team1Score;
-                team1Score += sign === 'positive' ? points : -points;
-                document.getElementById('team1-score').textContent = team1Score;
-            } else if (team === 'team2') {
-                previousTeam2Score = team2Score;
-                team2Score += sign === 'positive' ? points : -points;
-                document.getElementById('team2-score').textContent = team2Score;
-            }
-
-            checkForWinner();
-        }
-
-        function undoLastUpdate() {
-            team1Score = previousTeam1Score;
-            team2Score = previousTeam2Score;
-
-            document.getElementById('team1-score').textContent = team1Score;
-            document.getElementById('team2-score').textContent = team2Score;
-        }
-
-        function checkForWinner() {
-            if (team1Score >= MAX_SCORE) {
-                alert(document.getElementById('team1-name').textContent + " Wins!");
-                disableInput();
-                showRestartButton();
-            } else if (team2Score >= MAX_SCORE) {
-                alert(document.getElementById('team2-name').textContent + " Wins!");
-                disableInput();
-                showRestartButton();
-            }
-        }
-
-        function disableInput() {
-            const buttons = document.querySelectorAll('.score-button');
-            buttons.forEach(button => button.disabled = true);
-        }
-
-        function showRestartButton() {
-            document.getElementById('restart-button').style.display = 'inline-block';
-        }
-
-        function restartGame() {
-            team1Score = 0;
-            team2Score = 0;
-
-            document.getElementById('team1-score').textContent = team1Score;
-            document.getElementById('team2-score').textContent = team2Score;
-
-            const buttons = document.querySelectorAll('.score-button');
-            buttons.forEach(button => button.disabled = false);
-
-            document.getElementById('restart-button').style.display = 'none';
-
-            document.getElementById('team-names-inputs').style.display = 'block';
+            // Redirect to score tracker
+            window.location.href = 'score-tracker.html';
         }
     </script>
-    
+
 </body>
 </html>
