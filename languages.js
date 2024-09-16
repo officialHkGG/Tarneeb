@@ -1,4 +1,4 @@
-const languages = {
+const translations = {
     en: {
         title: "Tarneeb Score Tracker",
         team1: "Team 1",
@@ -45,3 +45,33 @@ const languages = {
         wins: "فاز!"
     }
 };
+
+function changeLanguage() {
+    const selectedLanguage = document.getElementById('language-selector').value;
+    localStorage.setItem('language', selectedLanguage);  // Save the selected language in localStorage
+    applyLanguage(selectedLanguage);
+}
+
+function applyLanguage(language) {
+    const translation = translations[language];
+
+    // Update text content for each element
+    document.querySelector('h1').textContent = translation.title;
+    document.getElementById('team1-name').textContent = translation.team1;
+    document.getElementById('team2-name').textContent = translation.team2;
+    document.querySelector('#team1-controls label').textContent = translation.team1Points;
+    document.querySelector('#team2-controls label').textContent = translation.team2Points;
+    document.querySelector('.btn-primary').textContent = translation.undo;
+    document.getElementById('restart-button').textContent = translation.restart;
+    document.querySelector('#confirm-score-text').textContent = translation.confirm;
+    document.querySelector('.btn-success').textContent = translation.addPoints;
+    document.querySelector('.btn-danger').textContent = translation.subtractPoints;
+    document.querySelector('.btn-secondary').textContent = translation.cancel;
+}
+
+// On page load, set the language to the previously selected language or default to 'en'
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    document.getElementById('language-selector').value = savedLanguage; // Set the selector to the saved language
+    applyLanguage(savedLanguage);  // Apply the saved language
+});

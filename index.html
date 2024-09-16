@@ -43,16 +43,70 @@
 <body>
 
     <div class="container">
-        <h1>Set Team Names</h1>
+        <label for="language-selector">Choose Language:</label>
+        <select id="language-selector" class="form-control" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="sv">Svenska</option>
+            <option value="ar">العربية</option>
+        </select>
+
+        <h1 id="set-teams-title">Set Team Names</h1>
         <input type="text" id="team1-name-input" class="form-control" placeholder="Enter Team 1 Name" />
         <input type="text" id="team2-name-input" class="form-control" placeholder="Enter Team 2 Name" />
-        <button class="btn btn-primary" onclick="proceedToScores()">Proceed to Score Tracker</button>
+        <button class="btn btn-primary" id="proceed-button" onclick="proceedToScores()">Proceed to Score Tracker</button>
     </div>
 
     <script>
+        // Default language
+        let currentLanguage = 'en';
+
+        // Language dictionary object
+        const languages = {
+            en: {
+                setTeamsTitle: "Set Team Names",
+                team1Placeholder: "Enter Team 1 Name",
+                team2Placeholder: "Enter Team 2 Name",
+                proceedButton: "Proceed to Score Tracker",
+                chooseLanguage: "Choose Language"
+            },
+            sv: {
+                setTeamsTitle: "Ställ in Lagnamn",
+                team1Placeholder: "Ange Lag 1 Namn",
+                team2Placeholder: "Ange Lag 2 Namn",
+                proceedButton: "Gå till poängspåraren",
+                chooseLanguage: "Välj Språk"
+            },
+            ar: {
+                setTeamsTitle: "أدخل أسماء الفرق",
+                team1Placeholder: "أدخل اسم الفريق 1",
+                team2Placeholder: "أدخل اسم الفريق 2",
+                proceedButton: "الانتقال إلى تتبع النقاط",
+                chooseLanguage: "اختر اللغة"
+            }
+        };
+
+        // Function to change the language
+        function changeLanguage() {
+            currentLanguage = document.getElementById('language-selector').value;
+
+            // Update text content based on the chosen language
+            document.getElementById('set-teams-title').textContent = languages[currentLanguage].setTeamsTitle;
+            document.getElementById('team1-name-input').placeholder = languages[currentLanguage].team1Placeholder;
+            document.getElementById('team2-name-input').placeholder = languages[currentLanguage].team2Placeholder;
+            document.getElementById('proceed-button').textContent = languages[currentLanguage].proceedButton;
+            document.querySelector('label[for="language-selector"]').textContent = languages[currentLanguage].chooseLanguage;
+
+            // Adjust the direction for Arabic
+            if (currentLanguage === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.removeAttribute('dir');
+            }
+        }
+
         function proceedToScores() {
-            const team1Name = document.getElementById('team1-name-input').value || 'Team 1';
-            const team2Name = document.getElementById('team2-name-input').value || 'Team 2';
+            const team1Name = document.getElementById('team1-name-input').value || languages[currentLanguage].team1Placeholder;
+            const team2Name = document.getElementById('team2-name-input').value || languages[currentLanguage].team2Placeholder;
 
             // Store team names in localStorage
             localStorage.setItem('team1Name', team1Name);
@@ -61,7 +115,11 @@
             // Redirect to score tracker
             window.location.href = 'score-tracker.html';
         }
-    </script>
 
+        // Initialize language when page loads
+        window.onload = function() {
+            changeLanguage();  // Set default language on page load
+        };
+    </script>
 </body>
 </html>
